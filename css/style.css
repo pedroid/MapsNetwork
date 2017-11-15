@@ -1,0 +1,25 @@
+#range {
+    width:1200;
+    height:800px;
+    overflow:hidden;
+    border:1px solid black;
+}
+
+#link_layer{
+	background-color:white;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+
+#icon{
+	width:30px;
+}
+
+.icon{
+	position:absolute;
+	z-index:1;
+	left:0px;
+	top:0px;
+	cursor:pointer
+}
