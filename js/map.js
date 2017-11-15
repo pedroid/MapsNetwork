@@ -105,7 +105,7 @@ $(document).ready(function() {
 	   },
 		containment:$(this).parent().parent()	
 	}); 
-	#('#map").touch(
+	#('#map').touch(
 		{
 			animate: false,
 			sticky: false,
