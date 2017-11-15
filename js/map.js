@@ -105,6 +105,17 @@ $(document).ready(function() {
 	   },
 		containment:$(this).parent().parent()	
 	}); 
+	#('#map").touch(
+		{
+			animate: false,
+			sticky: false,
+			dragx: true,
+			dragy: true,
+			rotate: false,
+			resort: true,
+			scale: false
+		}
+	);
 	
 	document.onmouseup = function(e){
 		var offset = $('#map').offset();
