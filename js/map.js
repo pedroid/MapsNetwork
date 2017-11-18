@@ -3,15 +3,7 @@ var appLandmarks = "https://script.google.com/macros/s/AKfycbxuKSxzloYTYXGLHmLtA
 var cursor_set = [];
 
 icon_div_set = [];
-icon_div_set.push({
-	"id":"icon_div",
-})
-icon_div_set.push({
-	"id":"icon_div2",
-})
-icon_div_set.push({
-	"id":"icon_div3",
-})
+
 
 var cursor2pointer_x = -15;
 var cursor2pointer_y = -45;
@@ -27,11 +19,11 @@ $(document).ready(function() {
 		MapID = query.split("=")[1];
 		location_x = location_search.split("&")[1].split("=")[1];
 		location_y = location_search.split("&")[2].split("=")[1];
-		if($(window).width()>1800){
-			$('#map').offset({left:1200/2-location_x,top:800/2-location_y});
-		}else{
+		//if($(window).width()>$('#range').width()){
+		//	$('#map').offset({left:1200/2-location_x,top:800/2-location_y});
+		//}else{
 			$('#map').offset({left:$( window ).width()/2-location_x,top:$( window ).height()/2-location_y});
-		}
+		//}
 		offset = $("#map").offset();
 		xPos = offset.left;
 		yPos = offset.top;
@@ -54,6 +46,9 @@ $(document).ready(function() {
 				var landmarks_set_tmp = data.split("|");
 				landmarks_set_tmp.pop();
 				for(var i=0;i<landmarks_set_tmp.length;i++){
+					icon_div_set.push({
+						"id":"icon_div_"+i
+					})
 					$('#icon_layer').append("<div id=\""+icon_div_set[i].id+"\" class=\"icon\"><img id=\"icon\" src=\"assets/icon.png\"/></div>");
 					cursor_set.push({
 						"cursor_x":parseInt(landmarks_set_tmp[i].split(",")[2]), 
