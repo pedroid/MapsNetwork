@@ -2,12 +2,16 @@ var appMaps = "https://script.google.com/macros/s/AKfycbxnaDdmZ6X1Z6IYXPVIEjYdbP
 var appLandmarks = "https://script.google.com/macros/s/AKfycbxuKSxzloYTYXGLHmLtAN5xCPTSHQBHlGF4IBcYbm2L8WjiwopC/exec";
 
 Vlocal2cursor_set = [];
-var icon_div_set = [];
+icon_div_set = [];
 var curr_icon;
 var curr_cursor_id;
 var cursor2pointer_x = 15;
-var cursor2pointer_y = 45;
+var cursor2pointer_y = 23;
+function addLandmark(){
+	$('body').css( 'cursor', 'url(assets/icon.png), auto' );
+}
 $(document).ready(function() {
+	$('#edit_div').hide();
 	var map_offset;
 	var xPos;
 	var yPos;
@@ -19,6 +23,8 @@ $(document).ready(function() {
 	}else{
 		var location_search = window.location.search.split("?")[1];
 		var query=location_search.split("&")[0];
+		$('#map_link').attr("href","map.html?"+location_search);
+
 		MapID = query.split("=")[1];
 		location_x = location_search.split("&")[1].split("=")[1];
 		Vlocal2cursor_x = location_x;
@@ -49,17 +55,22 @@ $(document).ready(function() {
 				"MapID":MapID
 			},function (data) {
 				var landmarks_set_tmp = data.split("|");
+				console.log(landmarks_set_tmp[0]);
 				landmarks_set_tmp.pop();
 				for(var i=0;i<landmarks_set_tmp.length;i++){
-					icon_div_set.push({
-						"id":"icon_div_"+i,
-					})
-					$('#icon_layer').append("<div id=\""+icon_div_set[i].id+"\" class=\"icon\"><img id=\"icon\" src=\"assets/icon.png\"/></div>");
-					Vlocal2cursor_set.push({
-						"x":parseInt(landmarks_set_tmp[i].split(",")[2]),
-						"y":parseInt(landmarks_set_tmp[i].split(",")[3])
-					})
-					$('#'+icon_div_set[i].id).css({ 'left': Vglobal2local_x+Vlocal2cursor_set[i].x + 'px', 'top': Vglobal2local_y+Vlocal2cursor_set[i].y + 'px' });
+						icon_div_set.push({
+							"id":"icon_div_"+i,
+							"LandmarkID":parseInt(landmarks_set_tmp[i].split(',')[0]),
+							"LandmarkName":landmarks_set_tmp[i].split(',')[1],
+							"HyperlinkLandmarkID":parseInt(landmarks_set_tmp[i].split(',')[4]),
+							"HyperlinkMapID":parseInt(landmarks_set_tmp[i].split(',')[5])
+						})
+						$('#icon_layer').append("<div id=\""+icon_div_set[i].id+"\" class=\"icon\"><img id=\"icon\" src=\"assets/icon.png\"/></div>");
+						Vlocal2cursor_set.push({
+							"x":parseInt(landmarks_set_tmp[i].split(",")[2]),
+							"y":parseInt(landmarks_set_tmp[i].split(",")[3])
+						})
+						$('#'+icon_div_set[i].id).css({ 'left': Vglobal2local_x+Vlocal2cursor_set[i].x + 'px', 'top': Vglobal2local_y+Vlocal2cursor_set[i].y + 'px' });
 
 				}
 				console.log(landmarks_set_tmp);
@@ -96,26 +107,68 @@ $(document).ready(function() {
 
 
 
-						   },
-							containment:$(this).parent().parent()
+						   },containment:
+							 		$(this).parent().parent(),
+							stop:
+								function(e, ui){
+										//console.log(ui.helper.attr('id'))
+										var curr_landmarks_set_id = ui.helper.attr('id').split('_').pop();
+										//console.log(curr_landmarks_set_id);
+										var offset = $('#map').offset();
+										//Vglobal2local
+										var Vglobal2local_x = offset.left;
+										var Vglobal2local_y = offset.top;
+										var Vglobal2cursor_x = $('#'+ui.helper.attr('id')).offset().left;
+										var Vglobal2cursor_y = $('#'+ui.helper.attr('id')).offset().top;
+										console.log('Vglobal2cursor_x:'+Vglobal2cursor_x+';Vglobal2cursor_y:'+Vglobal2cursor_y);
+
+										var Vlocal2cursor_x = Vglobal2cursor_x-Vglobal2local_x;
+										var Vlocal2cursor_y = Vglobal2cursor_y-Vglobal2local_y;
+										console.log("Vlocal2curor_x:"+Vlocal2cursor_x+cursor2pointer_x+"Vlocal2curor_y:"+Vlocal2cursor_y+cursor2pointer_y);
+										$.get(
+											appLandmarks,{
+												"command":"commandEditLandmark",
+											  "LandmarkID":icon_div_set[curr_landmarks_set_id].LandmarkID,
+											  "LandmarkName":icon_div_set[curr_landmarks_set_id].LandmarkName,
+											  "MapID":MapID,
+											  "location_x":Vlocal2cursor_x,
+											  "location_y":Vlocal2cursor_y,
+											  "HyperlinkLandmarkID":icon_div_set[curr_landmarks_set_id].HyperlinkLandmarkID
+											},function (data) {
+
+
+											})
+
+									}
 						}
 
 					);
-				    icon_div_set[i].HyperlinkMapID = HyperlinkMapID;
+				  icon_div_set[i].HyperlinkMapID = HyperlinkMapID;
 					console.log('test:'+icon_div_set[i].HyperlinkMapID);
 					if(icon_div_set[i].HyperlinkMapID==0){
 						console.log('nothing');
+						$('#'+icon_div_set[i].id).click(
+							{param:i,param_x:tmp,param_y:tmp2},
+							function(e){
+								 $('#edit_div_content_title').text(icon_div_set[e.data.param].LandmarkName);
+									$('#edit_div').show();
+									console.log(e.data.param+':'+icon_div_set[e.data.param].HyperlinkMapID);
+							}
+						)
 					}else{
 						var tmp = landmarks_set_tmp[i].split(",")[6];
 						var tmp2 = landmarks_set_tmp[i].split(",")[7];
 					        console.log(i);
-									/*
-						$('#'+icon_div_set[i].id).click({param:i,param_x:tmp,param_y:tmp2},function(e){
 
-							$(location).attr('href', 'map.html?MapID='+icon_div_set[e.data.param].HyperlinkMapID+'&location_x='+e.data.param_x+'&location_y='+e.data.param_y);
-						//console.log(e.data.param+':'+icon_div_set[e.data.param].HyperlinkMapID);
-						})
-						*/
+						$('#'+icon_div_set[i].id).click(
+							{param:i,param_x:tmp,param_y:tmp2},
+							function(e){
+									$('#edit_div_content_title').text(icon_div_set[e.data.param].LandmarkName);
+									$('#edit_div').show();
+									//console.log(e.data.param+':'+icon_div_set[e.data.param].HyperlinkMapID);
+							}
+						)
+
 					}
 
 
@@ -144,6 +197,7 @@ $(document).ready(function() {
 	});
 
 	document.onmouseup = function(e){
+
 		var offset = $('#map').offset();
 		//Vglobal2local
 		var Vglobal2local_x = offset.left;
