@@ -73,7 +73,7 @@ $(document).ready(function() {
 				for(var i=0;i<Vlocal2cursor_set.length;i++){
 					var HyperlinkMapID = landmarks_set_tmp[i].split(",")[5];
 					console.log(i+':'+HyperlinkMapID);
-					
+
 				  icon_div_set[i].HyperlinkMapID = HyperlinkMapID;
 					console.log('test:'+icon_div_set[i].HyperlinkMapID);
 					if(icon_div_set[i].HyperlinkMapID==0){

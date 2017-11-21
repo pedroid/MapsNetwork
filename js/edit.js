@@ -7,8 +7,14 @@ var curr_icon;
 var curr_cursor_id;
 var cursor2pointer_x = 15;
 var cursor2pointer_y = 23;
+
+var STATEIDLE = 0;
+var STATEADDLANDMARK = 1;
+var currstate = STATEIDLE;
+
 function addLandmark(){
-	$('body').css( 'cursor', 'url(assets/icon.png), auto' );
+	currstate = STATEADDLANDMARK;
+	$('body').css( 'cursor', 'crosshair' );
 }
 $(document).ready(function() {
 	$('#edit_div').hide();
@@ -205,13 +211,113 @@ $(document).ready(function() {
 		//Vglobal2pointer
 		var Vglobal2pointer_x = e.pageX;
 		var Vglobal2pointer_y = e.pageY;
-		//Vlocal2pointer = Vlocal2global + Vglobal2pointer
-		//console: Vlocal2pointer
-		console.log('Vlocal2mice_pointer:'+'x:'+(Vglobal2pointer_x-Vglobal2local_x)+';y:'+(Vglobal2pointer_y-Vglobal2local_y));
-		//cursor_set[0].cursor_x = cursorX-xPos;
-		//cursor_set[0].cursor_y = cursorY-yPos;
-		//console.log('Vlocal2cursor[0]:'+'x:'+Vlocal2cursor_set[0].x+';y:'+Vlocal2cursor_set[0].y);
+		var Vlocal2mice_pointer_x = Vglobal2pointer_x-Vglobal2local_x;
+		var Vlocal2mice_pointer_y = Vglobal2pointer_y-Vglobal2local_y;
+		console.log('Vlocal2mice_pointer:'+'x:'+Vlocal2mice_pointer_x+';y:'+Vlocal2mice_pointer_y);
+		var Vlocal2cursor_x = Vlocal2mice_pointer_x-cursor2pointer_x;
+		var Vlocal2cursor_y = Vlocal2mice_pointer_y-cursor2pointer_y;
+		if(currstate == STATEADDLANDMARK){
+			$('#edit_div').show();
+			$('body').css( 'cursor', 'auto' );
+			var num_icon_div_set = icon_div_set.length;
+			icon_div_set.push({
+				"id":"icon_div_"+num_icon_div_set,
+				//"LandmarkID":,
+				//"LandmarkName":landmarks_set_tmp[i].split(',')[1],
+				//"HyperlinkLandmarkID":parseInt(landmarks_set_tmp[i].split(',')[4]),
+				//"HyperlinkMapID":parseInt(landmarks_set_tmp[i].split(',')[5])
+			})
+			$('#icon_layer').append("<div id=\""+icon_div_set[icon_div_set.length-1].id+"\" class=\"icon\"><img id=\"icon\" src=\"assets/icon.png\"/></div>");
+			var Vlocal2pointer_x
+			Vlocal2cursor_set.push({
+				"x":Vlocal2cursor_x,
+				"y":Vlocal2cursor_y
+			})
+			$('#'+icon_div_set[icon_div_set.length-1].id).css({ 'left': Vglobal2local_x+Vlocal2cursor_set[icon_div_set.length-1].x + 'px', 'top': Vglobal2local_y+Vlocal2cursor_set[icon_div_set.length-1].y + 'px' });
+			$('#'+icon_div_set[icon_div_set.length-1].id).draggable(
 
+						{
+							drag: function(e, ui){
+								var tmp = ui.helper.attr('id');
+								//console.log(tmp);
+								curr_cursor_id = parseInt(tmp.split('_').pop());
+								map_offset = $("#map").offset();
+								Vglobal2local_x = map_offset.left;
+								Vglobal2local_y = map_offset.top;
+								var icon_offset = $(this).offset();
+								var Vglobal2cursor_x = icon_offset.left;
+								var Vglobal2cursor_y = icon_offset.top;;
+								
+								Vlocal2cursor_set[curr_cursor_id].x = -Vglobal2local_x + Vglobal2cursor_x;
+								Vlocal2cursor_set[curr_cursor_id].y = -Vglobal2local_y + Vglobal2cursor_y;
+								
+
+
+
+						   },containment:
+							 		$(this).parent().parent(),
+							stop:
+								function(e, ui){
+										//console.log(ui.helper.attr('id'))
+										var curr_landmarks_set_id = ui.helper.attr('id').split('_').pop();
+										//console.log(curr_landmarks_set_id);
+										var offset = $('#map').offset();
+										//Vglobal2local
+										var Vglobal2local_x = offset.left;
+										var Vglobal2local_y = offset.top;
+										var Vglobal2cursor_x = $('#'+ui.helper.attr('id')).offset().left;
+										var Vglobal2cursor_y = $('#'+ui.helper.attr('id')).offset().top;
+										console.log('Vglobal2cursor_x:'+Vglobal2cursor_x+';Vglobal2cursor_y:'+Vglobal2cursor_y);
+
+										var Vlocal2cursor_x = Vglobal2cursor_x-Vglobal2local_x;
+										var Vlocal2cursor_y = Vglobal2cursor_y-Vglobal2local_y;
+										console.log("Vlocal2curor_x:"+Vlocal2cursor_x+cursor2pointer_x+"Vlocal2curor_y:"+Vlocal2cursor_y+cursor2pointer_y);
+										/*
+										$.get(
+											appLandmarks,{
+												"command":"commandEditLandmark",
+											  "LandmarkID":icon_div_set[curr_landmarks_set_id].LandmarkID,
+											  "LandmarkName":icon_div_set[curr_landmarks_set_id].LandmarkName,
+											  "MapID":MapID,
+											  "location_x":Vlocal2cursor_x,
+											  "location_y":Vlocal2cursor_y,
+											  "HyperlinkLandmarkID":icon_div_set[curr_landmarks_set_id].HyperlinkLandmarkID
+											},function (data) {
+
+
+										})
+										*/
+
+									}
+						}
+
+			);
+			if(icon_div_set[icon_div_set.length-1].HyperlinkMapID==0){
+						//console.log('nothing');
+						$('#'+icon_div_set[icon_div_set.length-1].id).click(
+							{param:i,param_x:tmp,param_y:tmp2},
+							function(e){
+								 $('#edit_div_content_title').text(icon_div_set[icon_div_set.length-1].LandmarkName);
+									$('#edit_div').show();
+									//console.log(e.data.param+':'+icon_div_set[icon_div_set.length-1].HyperlinkMapID);
+							}
+						)
+			}else{
+						
+
+				$('#'+icon_div_set[icon_div_set.length-1].id).click(
+					
+					function(e){
+							$('#edit_div_content_title').text(icon_div_set[icon_div_set.length-1].LandmarkName);
+							$('#edit_div').show();
+							//console.log(e.data.param+':'+icon_div_set[e.data.param].HyperlinkMapID);
+					}
+				)
+
+			}
+		
+			currstate = STATEIDLE;
+		}
 	}
 	$( window ).resize(function() {
 		console.log($( window ).width());
