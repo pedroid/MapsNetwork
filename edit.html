@@ -19,16 +19,17 @@
 </div>
 <div id="edit_div">
 <div id="edit_div_close">
-	    <a href="">save</a>
+	    <a href="javascript:SaveLandmark();">save</a>
 		<a href="javascript: $('#edit_div').hide();">close</a>
-		<a href="javascript: $('#edit_div').hide();">save&amp;close</a>
+		<a href="javascript:SaveLandmark(); $('#edit_div').hide();">save&amp;close</a>
+		<a href="javascript:DeleteLandmark(); $('#edit_div').hide();">delete</a>
 </div>
 <div id="edit_div_content">
 	<div>title:
-			<div contenteditable="true" class="single-line" id="edit_div_content_title"></div>
+			<div contenteditable="true" class="single-line" id="edit_div_content_landmark_name"></div>
 	</div>
-	<div>content:
-			<div contenteditable="true" class="single-line" id="edit_div_content_content"></div>
+	<div>hyperlink landmark id:
+			<div contenteditable="true" class="single-line" id="edit_div_content_landmark_hyperlink_landmark_id"></div>
 	</div>
 </div>
 </div>

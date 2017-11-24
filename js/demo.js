@@ -8,10 +8,6 @@ var curr_cursor_id;
 var cursor2pointer_x = 15;
 var cursor2pointer_y = 23;
 $(document).ready(function() {
-	load();
-});
-
-var load = function(){
 	var map_offset;
 	var xPos;
 	var yPos;
@@ -29,7 +25,6 @@ var load = function(){
 		Vlocal2cursor_x = location_x;
 		location_y = location_search.split("&")[2].split("=")[1];
 		Vlocal2cursor_y = location_y;
-		StoryID = location_search.split("&")[3].split("=")[1];
 		//if($(window).width()>$('#range').width()){
 		//	$('#map').offset({left:1200/2-location_x,top:800/2-location_y});
 		//}else{
@@ -52,8 +47,7 @@ var load = function(){
 		$.get(
 			appLandmarks,{
 				"command":"commandGetLandmarks",
-				"MapID":MapID,
-				"StoryID":StoryID
+				"MapID":MapID
 			},function (data) {
 				var landmarks_set_tmp = data.split("|");
 				console.log(landmarks_set_tmp[0]);
@@ -64,8 +58,7 @@ var load = function(){
 							"LandmarkID":parseInt(landmarks_set_tmp[i].split(',')[0]),
 							"LandmarkName":landmarks_set_tmp[i].split(',')[1],
 							"HyperlinkLandmarkID":parseInt(landmarks_set_tmp[i].split(',')[4]),
-							"HyperlinkMapID":parseInt(landmarks_set_tmp[i].split(',')[5]),
-							"StoryID":parseInt(landmarks_set_tmp[i].split(',')[8])
+							"HyperlinkMapID":parseInt(landmarks_set_tmp[i].split(',')[5])
 						})
 						$('#icon_layer').append("<div id=\""+icon_div_set[i].id+"\" class=\"icon\"><img id=\"icon\" src=\"assets/icon.png\"/></div>");
 						Vlocal2cursor_set.push({
@@ -101,7 +94,7 @@ var load = function(){
 							{param:i,param_x:tmp,param_y:tmp2},
 							function(e){
 
-									$(location).attr('href', 'map.html?MapID='+icon_div_set[e.data.param].HyperlinkMapID+'&location_x='+e.data.param_x+'&location_y='+e.data.param_y+'&StoryID='+icon_div_set[e.data.param].StoryID);
+									$(location).attr('href', 'map.html?MapID='+icon_div_set[e.data.param].HyperlinkMapID+'&location_x='+e.data.param_x+'&location_y='+e.data.param_y);
 
 									//console.log(e.data.param+':'+icon_div_set[e.data.param].HyperlinkMapID);
 							}
@@ -154,4 +147,4 @@ var load = function(){
 	$( window ).resize(function() {
 		console.log($( window ).width());
 	});
-}
+});
