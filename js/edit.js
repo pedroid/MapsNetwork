@@ -26,10 +26,12 @@ function SaveLandmark(){
 		  "LandmarkName":$('#edit_div_content_landmark_name').text(),
 		  "HyperlinkLandmarkID":parseInt($('#edit_div_content_landmark_hyperlink_landmark_id').text()),
 		},function (data) {
-
+			  var id_to_edit = parseInt($('#edit_div').attr('landmark_id'));
+				icon_div_set[id_to_edit].LandmarkName = $('#edit_div_content_landmark_name').text();
+				icon_div_set[id_to_edit].HyperlinkLandmarkID = $('#edit_div_content_landmark_hyperlink_landmark_id').text();
 
 		}
-	)	
+	)
 }
 function DeleteLandmark(){
 	console.log('test');
@@ -41,7 +43,7 @@ function DeleteLandmark(){
 			$('#icon_div_'+parseInt($('#edit_div').attr('landmark_id'))).remove()
 
 		}
-	)		
+	)
 }
 $(document).ready(function() {
 	$('#edit_div').hide();
@@ -90,7 +92,7 @@ $(document).ready(function() {
 				"StoryID":StoryID
 			},function (data) {
 				//console.log(data);
-				
+
 				var landmarks_set_tmp = data.split("|");
 				console.log(landmarks_set_tmp[0]);
 				landmarks_set_tmp.pop();
@@ -191,7 +193,11 @@ $(document).ready(function() {
 							{param:i},
 							function(e){
 								 $('#edit_div_content_landmark_name').text(icon_div_set[e.data.param].LandmarkName);
+								 if($('#edit_div').is(':visible')){
+									 $('#edit_div').hide()
+								 }else{
 									$('#edit_div').show();
+								}
 									console.log(e.data.param+':'+icon_div_set[e.data.param].HyperlinkMapID);
 							}
 						)
@@ -206,7 +212,11 @@ $(document).ready(function() {
 									$('#edit_div_content_landmark_name').text(icon_div_set[e.data.param].LandmarkName);
 									$('#edit_div_content_landmark_hyperlink_landmark_id').text(icon_div_set[e.data.param].HyperlinkLandmarkID);
 									$('#edit_div').attr('landmark_id',e.data.param)
-									$('#edit_div').show();
+									if($('#edit_div').is(':visible')){
+ 									 $('#edit_div').hide()
+ 								 }else{
+ 									$('#edit_div').show();
+ 								}
 									//console.log(e.data.param+':'+icon_div_set[e.data.param].HyperlinkMapID);
 							}
 						)
@@ -279,8 +289,8 @@ $(document).ready(function() {
 						"MapID":MapID,
 						"HyperlinkLandmarkID":data,
 						"HyperlinkMapID":MapID
-						
-						
+
+
 					}
 					$('#edit_div').attr('landmark_id',data);
 					Vlocal2cursor_set[data] = {
@@ -302,10 +312,10 @@ $(document).ready(function() {
 										var icon_offset = $(this).offset();
 										var Vglobal2cursor_x = icon_offset.left;
 										var Vglobal2cursor_y = icon_offset.top;;
-										
+
 										Vlocal2cursor_set[curr_cursor_id].x = -Vglobal2local_x + Vglobal2cursor_x;
 										Vlocal2cursor_set[curr_cursor_id].y = -Vglobal2local_y + Vglobal2cursor_y;
-										
+
 
 
 
@@ -322,7 +332,7 @@ $(document).ready(function() {
 												var Vglobal2local_y = offset.top;
 												var Vglobal2cursor_x = $('#'+ui.helper.attr('id')).offset().left;
 												var Vglobal2cursor_y = $('#'+ui.helper.attr('id')).offset().top;
-												
+
 												console.log('Vglobal2cursor_x:'+Vglobal2cursor_x+';Vglobal2cursor_y:'+Vglobal2cursor_y);
 
 												var Vlocal2cursor_x = Vglobal2cursor_x-Vglobal2local_x;
@@ -346,7 +356,7 @@ $(document).ready(function() {
 
 													}
 												)
-												
+
 												if(icon_div_set[data].HyperlinkMapID==0){
 															//console.log('nothing');
 															$('#'+icon_div_set[icon_div_set.length-1].id).click(
@@ -358,10 +368,10 @@ $(document).ready(function() {
 																}
 															)
 												}else{
-															
+
 
 													$('#'+icon_div_set[data].id).click(
-														
+
 														function(e){
 																$('#edit_div_content_landmark_name').text(icon_div_set[data].LandmarkName);
 																$('#edit_div_content_landmark_hyperlink_landmark_id').text(icon_div_set[data].HyperlinkLandmarkID);
@@ -371,9 +381,9 @@ $(document).ready(function() {
 													)
 
 												}
-												
-												
-												
+
+
+
 
 											}
 								}
@@ -381,9 +391,9 @@ $(document).ready(function() {
 					);
 				}
 			)
-			
-			
-		
+
+
+
 			currstate = STATEIDLE;
 		}
 	}
