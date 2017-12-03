@@ -55,8 +55,9 @@ var load = function(){
 				"MapID":MapID,
 				"StoryID":StoryID
 			},function (data) {
+				//console.log(data);
 				var landmarks_set_tmp = data.split("|");
-				console.log(landmarks_set_tmp[0]);
+				//console.log(landmarks_set_tmp[0]);
 				landmarks_set_tmp.pop();
 				for(var i=0;i<landmarks_set_tmp.length;i++){
 						icon_div_set.push({
@@ -65,8 +66,10 @@ var load = function(){
 							"LandmarkName":landmarks_set_tmp[i].split(',')[1],
 							"HyperlinkLandmarkID":parseInt(landmarks_set_tmp[i].split(',')[4]),
 							"HyperlinkMapID":parseInt(landmarks_set_tmp[i].split(',')[5]),
-							"StoryID":parseInt(landmarks_set_tmp[i].split(',')[8])
+							"StoryID":parseInt(landmarks_set_tmp[i].split(',')[8]),
+							"MEMO":landmarks_set_tmp[i].split(',')[9]
 						})
+						//console.log(landmarks_set_tmp[i].split(',')[9]);
 						$('#icon_layer').append("<div id=\""+icon_div_set[i].id+"\" class=\"icon\"><img id=\"icon\" src=\"assets/icon.png\"/></div>");
 						Vlocal2cursor_set.push({
 							"x":parseInt(landmarks_set_tmp[i].split(",")[2]),
@@ -75,27 +78,28 @@ var load = function(){
 						$('#'+icon_div_set[i].id).css({ 'left': Vglobal2local_x+Vlocal2cursor_set[i].x + 'px', 'top': Vglobal2local_y+Vlocal2cursor_set[i].y + 'px' });
 
 				}
-				console.log(landmarks_set_tmp);
+				//console.log(landmarks_set_tmp);
 
 				for(var i=0;i<Vlocal2cursor_set.length;i++){
 					var HyperlinkMapID = landmarks_set_tmp[i].split(",")[5];
-					console.log(i+':'+HyperlinkMapID);
-					
+					//console.log(i+':'+HyperlinkMapID);
+
 				  icon_div_set[i].HyperlinkMapID = HyperlinkMapID;
-					console.log('test:'+icon_div_set[i].HyperlinkMapID);
+					//console.log('test:'+icon_div_set[i].HyperlinkMapID);
 					if(icon_div_set[i].HyperlinkMapID==0){
-						console.log('nothing');
+						//console.log(icon_div_set[i].MEMO);
 						$('#'+icon_div_set[i].id).click(
 							{param:i,param_x:tmp,param_y:tmp2},
 							function(e){
-
-									console.log(e.data.param+':'+icon_div_set[e.data.param].HyperlinkMapID);
+									$('#memo_div').show();
+									$('#memo_div_content').text(icon_div_set[e.data.param].MEMO);
+									//console.log(e.data.param+':'+icon_div_set[e.data.param].MEMO);
 							}
 						)
 					}else{
 						var tmp = landmarks_set_tmp[i].split(",")[6];
 						var tmp2 = landmarks_set_tmp[i].split(",")[7];
-					        console.log(i);
+//					        console.log(i);
 
 						$('#'+icon_div_set[i].id).click(
 							{param:i,param_x:tmp,param_y:tmp2},

@@ -73,6 +73,31 @@
   padding-left:5px;
 
 }
+
+#memo_div{
+  position:fixed;
+  z-index:5;
+  width:30%;
+  height:60%;
+  right:5px;
+  top:40%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display:none;
+
+}
+
+#memo_div_close{
+  position:relative;
+  text-align:right;
+  padding-right:5px;
+  font-size:20px;
+}
+
+#memo_div_content{
+  padding-left:5px;
+
+}
+
 [contenteditable="true"].single-line {
     white-space: nowrap;
     width:100%;
