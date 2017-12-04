@@ -1,30 +1,6 @@
-var appStories = "https://script.google.com/macros/s/AKfycbx4wTmlKCrNV-gkG3J6A2hNOTubo-um1YZG-zDrhruuql-dN9SS/exec";
-
-$('.show-list').click(function(){
-	$('.wrapper').addClass('list-mode');
-});
-
-$('.hide-list').click(function(){
-	$('.wrapper').removeClass('list-mode');
-});
-
-$(function(){
-  $.get(appStories,
-    {
-      "command":"commandGetStories"
-    },
-    function(data){
-      console.log(data);
-      var stories_set_tmp = data.split('||');
-      stories_set_tmp.pop();
-      for(var i=0;i<stories_set_tmp.length;i++){
-        var story_tmp = stories_set_tmp[i];
-          var StoryID = story_tmp.split('$$')[0];
-          var StoryName = story_tmp.split('$$')[1];
-          var EntryMapID = story_tmp.split('$$')[2];
-          var Description = story_tmp.split('$$')[3];
-          $('.container').append("<div class=\"box\"><div>"+StoryName+"</div><div><a href=\"map.html\?MapID="+EntryMapID+"&location_x=200&location_y=200&StoryID="+StoryID+"\">map</a></div></div>");
-      }
-    })
-
-});
+$(document).ready(function(){$("ul li > a").click(function(){$("ul li > a").removeAttr("class");$(this).addClass("home")});$("ul li a").click(function(){var e=$(this.hash);$("body,html").animate({scrollTop:e.offset().top},700);return false});$(window).scroll(function(){if($(this).scrollTop()>500){$(".top").fadeIn()}else{$(".top").fadeOut()}});$(".top").click(function(){$("body,html").animate({scrollTop:0},500);return false})})
+/*
+	* Design by : Mahmoud Abd Alkarim ^_^
+	* Twitter   : 3abkream 
+	* Contact   : AbdAlkarim.mail@gmail.com
+*/

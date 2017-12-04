@@ -1,97 +1,139 @@
-*{
-	-webkit-box-sizing: border-box;
-  	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-html, body{
-	background-color:#F2F2F2;
-	font-family:Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+/*
+	* Design by : Mahmoud Abd Alkarim ^_^
+	* Twitter   : 3abkream 
+	* Contact   : AbdAlkarim.mail@gmail.com
+*/
+*{margin:0;padding:0}
+body{
+	color:#111;
+	background:#eeeeee;
 	margin:0;
 	padding:0;
-	height:100%;
+	font-family:tahoma;
+	min-height:2000px
+}
+
+span.logo{
+	position:fixed;
+	z-index:99999;
+	margin:25px 0 0 35px;
+	font-size:19px;
+	font-weight:bold;
+	color:#E8F873
+}
+span.logo span{
+	color:#300
+}
+
+#nav ul{
+	text-align:center;
+	list-style:none;
+	padding:0;
+	margin:0;
+	height:73px;
+	position:fixed;
 	width:100%;
-	text-align:center;
-	color:#404040;
-	position:relative;
-}
-
-a{
-	-webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
-.wrapper{
-	width:450px;
-	margin:30px auto 0;
-	background-color:#FFFFFF;
-	-webkit-box-sizing: border-box;
-  	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-header{
-	text-align:right;
-	padding:10px;
-	margin-bottom:10px;
-	background-color:#5DBA9D;
-}
-
-header a{
-	font-size:20px;
-	color:#FFFFFF;
-	width:40px;
-	height:40px;
-	line-height:40px;
-	margin-left:10px;
-	text-align:center;
+	background:rgba(0,65,0,0.25);
+	top:0;
+	left:0;
+	z-index:1
+	}
+#nav ul li{
 	display:inline-block;
+	cursor:pointer}
+#nav ul li a{
+	text-decoration:none;
+	color:#123;display:block;
+	padding:27px 35px;
+	-webkit-transition:all 0.5s ease;
+	-moz-transition:all 0.5s ease;
+	-o-transition:all 0.5s ease;
+	transition:all 0.5s ease;
+	font-size:14px;
+	font-weight:bold
 }
 
-header a:hover, .list-mode header a.hide-list:hover{
-	background-color:#11956c;
+#nav ul li a:hover{
+	color:#FFF;
+	text-shadow:0px 1px 1px #fff
 }
 
-header a.hide-list{
-	background-color:#11956c;
-}
-
-.list-mode header a.hide-list{
-	background-color:#5DBA9D;
-}
-
-.list-mode header a.show-list{
-	background-color:#11956c;
-}
-
-.container:after{
-	content:"";
-	clear:both;
-	display:table;
-}
-
-.container{
-	padding:10px 0 10px 10px;
-}
-
-.wrapper .box{
-	float:left;
-	width:100px;
-	height:100px;
-	margin:0 10px 10px 0;
-	background-color:#CCCCCC;
-	-webkit-transition:all 1.0s ease;
-	-moz-transition:all 1.0s ease;
-	transition:all 1.0s ease;
-	transition:all 1.0s ease;
-}
-
-.wrapper.list-mode .container{
-	padding-right:10px;
-}
-
-.wrapper.list-mode .box{
+#all-div{
 	width:100%;
+	height:100%;
+	position:absolute;
+	text-align:left;
+	font-size:22px;
+	font-weight:bold;
+	font-family:verdana
+	
+}
+
+#all-div h2{
+	text-align:center;
+}
+.welcome{
+	color:#FFF;
+	text-shadow:0px 1px 2px #fff;
+	font-size:16px
+}
+
+.link{
+	padding-left:5%;
+	padding-top:100px;
+	/*height:100%;*/
+	padding-bottom:100px;
+}	
+	
+#link1{
+	padding-top:100px;
+	background:#eeeeee;
+	
+}
+#link2{
+	background:#dddddd;
+}
+#link3{
+	background:#eeeeee;
+	
+}
+#link4{
+	background:#dddddd;
+}
+#link5{
+	background:#eeeeee;
+}
+
+.top{
+	width:50px;
+	height:50px;
+	border-radius:100%;
+	background:#1A5F5F;
+	position:fixed;
+	top:620px;
+	left:23px;
+	text-shadow:1px 1px 4px #222;
+	cursor:pointer;
+	outline:0;
+	color:#FFF;
+	font-weight:bold;
+	font-size:15px;
+	display:none;
+	z-index:99999;
+	text-align:center;
+	line-height:50px;
+	text-decoration:none;
+	border:3px solid #EEE;
+	-webkit-transition:all 0.3s ease;
+	-moz-transition:all 0.3s ease;
+	-o-transition:all 0.3s ease;
+	transition:all 0.3s ease
+}
+.top:active{
+	border:3px solid #1A5F5F;
+	background:#EEE;
+	color:#001717
+}
+.top span{
+	color:#FF5F49
 }
