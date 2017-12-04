@@ -1,0 +1,154 @@
+#range {
+    width:100%;
+	 height:100%;
+    overflow:hidden;
+    border:0px solid black;
+}
+#content{
+	margin-top:80px;
+	margin-left:20px;
+}
+
+
+#link_layer{
+	background-color:white;
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:100%;
+  z-index:1;
+}
+#div_authen{
+  z-index:3;
+  background-color: rgba(220, 200, 200, 0.8);;
+  position:fixed;
+  width:50%;
+  height:50%;
+  left:25%;
+  top:25%;
+  font-size:20px;
+  padding: 20px 20px 20px 20px;
+  display:none;
+}
+.single-line{
+  margin-bottom:20px;
+  border-style:solid;
+  border-width:2px;
+  font-size:20px;
+}
+
+#div_authen_send{
+  border-style:solid;
+  border-size:2px;
+  width:80px;
+  text-align:center;
+  margin-bottom:5px;
+
+}
+#div_authen_send:hover{
+  background-color: gray;
+  cursor:pointer;
+
+}
+#icon{
+	width:30px;
+}
+#edit_div{
+  position:fixed;
+  z-index:5;
+  width:30%;
+  height:60%;
+  right:5px;
+  top:40%;
+  background-color: rgba(255, 255, 255, 0.8);
+
+}
+
+#edit_div_close{
+  position:relative;
+  text-align:right;
+  padding-right:5px;
+  font-size:20px;
+}
+
+#edit_div_content{
+  padding-left:5px;
+
+}
+
+#memo_div{
+  position:fixed;
+  z-index:5;
+  width:30%;
+  height:60%;
+  right:5px;
+  top:40%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display:none;
+
+}
+
+#memo_div_close{
+  position:relative;
+  text-align:right;
+  padding-right:5px;
+  font-size:20px;
+}
+
+#memo_div_content{
+  padding-left:5px;
+
+}
+
+[contenteditable="true"].single-line {
+    white-space: nowrap;
+    width:100%;
+    overflow: hidden;
+}
+[contenteditable="true"].single-line br {
+    display:none;
+
+}
+[contenteditable="true"].single-line * {
+    display:inline;
+    white-space:nowrap;
+}
+.icon{
+	position:absolute;
+	z-index:2;
+	left:0px;
+	top:0px;
+	cursor:pointer
+}
+
+.topnav {
+  position:fixed;
+  overflow: hidden;
+  background-color: #333;
+  z-index:5;
+  top:0;
+  left:0;
+  width:100%;
+
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}

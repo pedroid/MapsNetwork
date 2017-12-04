@@ -7,6 +7,14 @@ var curr_icon;
 var curr_cursor_id;
 var cursor2pointer_x = 15;
 var cursor2pointer_y = 23;
+
+search_set = {};
+
+var ToVisualize = function(){
+	$(location).attr('href', 'visualization.html?StoryID='+search_set.StoryID);
+	
+}
+
 $(document).ready(function() {
 	load();
 });
@@ -21,6 +29,11 @@ var load = function(){
 	if(window.location.search == ""){
 
 	}else{
+		var search_tmp = window.location.search.split("?")[1];
+		var search_set_tmp = search_tmp.split('&');
+		for (id_set in search_set_tmp){
+			search_set[search_set_tmp[id_set].split("=")[0]] = parseInt(search_set_tmp[id_set].split("=")[1]);
+		}
 		var location_search = window.location.search.split("?")[1];
 		var query=location_search.split("&")[0];
 		$('#edit').attr("href","edit.html?"+location_search);
