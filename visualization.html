@@ -1,26 +1,66 @@
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/jquery-1.9.0.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
+<script src='https://gojs.net/latest/release/go.js'></script>
 <script src="js/visualization.js"></script>
 <script src="js/jquery.ui.touch-punch.min.js"></script>
 <link href="css/visualization.css" rel="stylesheet" type="text/css" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
-<body>
+  <body">
 <div id="icon_layer">
 
 </div>
 <div class="topnav">
-  <a class="active" href="index.html">Home</a>
+  <a href="index.html">Home</a>
 <a href="javascript:console.log('test');">Contribute Story</a>
-<a href="visualization.html">Visualize Map Network</a>
-<a id="edit" href="edit.html">Edit</a>
+<a class="active" href="visualization.html">Visualize Map Network</a>
+<a id="map_link" href="map.html">Return to Map</a>
 
 </div>
 
 <div id="content">
 ref:<a href="https://gojs.net/latest/samples/stateChart.html">reference</a>
 </div>
+<div id="sample">
+  <div id="myDiagramDiv" style="border: solid 1px black; width: 100%; height: 400px"></div>
+ 
+  <div>
+
+    <textarea id="mySavedModel" style="display:none;width:100%;height:300px">{ "nodeKeyProperty": "id",
+  "nodeDataArray": [
+    { "id": 0, "loc": "120 120", "text": "Initial" },
+    { "id": 1, "loc": "330 120", "text": "First down" },
+    { "id": 2, "loc": "226 376", "text": "First up" },
+    { "id": 3, "loc": "60 276", "text": "Second down" },
+    { "id": 4, "loc": "226 226", "text": "Wait" }
+  ],
+  "linkDataArray": [
+    { "from": 0, "to": 0, "text": "up or timer", "curviness": -20 },
+    { "from": 0, "to": 1, "text": "down", "curviness": 20 },
+    { "from": 1, "to": 0, "text": "up (moved)\nPOST", "curviness": 20 },
+    { "from": 1, "to": 1, "text": "down", "curviness": -20 },
+    { "from": 1, "to": 2, "text": "up (no move)" },
+    { "from": 1, "to": 4, "text": "timer" },
+    { "from": 2, "to": 0, "text": "timer\nPOST" },
+    { "from": 2, "to": 3, "text": "down" },
+    { "from": 3, "to": 0, "text": "up\nPOST\n(dblclick\nif no move)" },
+    { "from": 3, "to": 3, "text": "down or timer", "curviness": 20 },
+    { "from": 4, "to": 0, "text": "up\nPOST" },
+    { "from": 4, "to": 4, "text": "down" }
+  ]
+}
+    </textarea>
+  </div>
+</div>
 	</body>
 </html>
+
+  
+
+  
+
+    
+
+</body>

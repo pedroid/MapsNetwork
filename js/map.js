@@ -9,15 +9,44 @@ var cursor2pointer_x = 15;
 var cursor2pointer_y = 23;
 
 search_set = {};
-
+var location_search;
 var ToVisualize = function(){
-	$(location).attr('href', 'visualization.html?StoryID='+search_set.StoryID);
-	
+	//$(location).attr('href', 'visualization.html?MapID='+search_set.MapID+'&StoryID='+search_set.StoryID);
+	$(location).attr("href","visualization.html?"+location_search);
 }
-
+var circularnav;
 $(document).ready(function() {
+	circularnav = document.getElementsByClassName("ss-icon")[0];
+	circularnav.addEventListener("click", clickSet, false);
+
+	circularnav.addEventListener("keydown", function (e) {
+		if (e.keyCode === 13) {  
+			clickSet();
+		}
+	});
+	$('#new_nav').draggable();
+	
+	
 	load();
 });
+
+
+//nav
+function clickSet() {
+	 circularnav.classList.toggle("closed")
+	 circularnav.classList.toggle("clicked");
+	 /*
+	  if (circularnav.classList.contains("closed")) {
+		// freshly closed button
+		var pseudoBefore = window.getComputedStyle(
+			document.querySelector('.ss-icon'), ':before'		
+		).animation;
+	  }
+	  */
+}
+
+
+//end of nav
 
 var load = function(){
 	var map_offset;
@@ -34,7 +63,7 @@ var load = function(){
 		for (id_set in search_set_tmp){
 			search_set[search_set_tmp[id_set].split("=")[0]] = parseInt(search_set_tmp[id_set].split("=")[1]);
 		}
-		var location_search = window.location.search.split("?")[1];
+		location_search = window.location.search.split("?")[1];
 		var query=location_search.split("&")[0];
 		$('#edit').attr("href","edit.html?"+location_search);
 		MapID = query.split("=")[1];
