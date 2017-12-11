@@ -5,7 +5,6 @@
 	 height:100%;
     overflow:hidden;
     border:0px solid black;
-	display:none;
 }
 
 
@@ -265,7 +264,9 @@
           font-feature-settings: "liga";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
+
 
 
 
@@ -282,6 +283,7 @@ nav {
   transition: .3s;
   background: #f00;
   outline: none;
+  display:none;
 }
 nav:hover, nav:focus {
   background: #fff;
@@ -333,7 +335,7 @@ nav a {
   text-align: center;
   line-height: 1.5;
   color: #111;
-  
+
   text-decoration: none;
   position: absolute;
   font-size: 4rem;
@@ -343,9 +345,11 @@ nav a {
   -webkit-transition: .4s;
   transition: .4s;
   z-index: -1;
+
 }
 nav a:hover, nav a:focus {
-  background-color: #000;
+  background-color: #fff;
+
 }
 nav a:nth-child(1) {
   -webkit-transform: rotate(-72deg);

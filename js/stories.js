@@ -7,7 +7,23 @@ $('.show-list').click(function(){
 $('.hide-list').click(function(){
 	$('.wrapper').removeClass('list-mode');
 });
+var NewStory = function(){
+	$('#edit_div').show();
 
+}
+var ToNewStory = function(){
+	$.get(appStories,
+    {
+      "command":"commandAddStory",
+			"StoryName":"test StoryName",
+			"EntryMapID":"33",
+			"Description":"test description"
+    },
+    function(data){
+
+		});
+
+}
 $(function(){
   $.get(appStories,
     {

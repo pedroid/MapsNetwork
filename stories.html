@@ -16,7 +16,7 @@
 
   <div class="wrapper">
 		<div>
-<a href="new_story.html">contribute story</a>
+<a href="javascript: NewStory()">contribute story</a>
 <a href="new_map.html">contribute map</a>
 		</div>
  	<header>
@@ -28,6 +28,36 @@
 
 
     </div>
+</div>
+
+<div id="form-main">
+
+  <div id="edit_div">
+  	<div id="edit_div_close">
+			<!--<a href="javascript: DeleteTask();$('#edit_div').hide();">Delete</a>-->
+			<a href="javascript: $('#edit_div').hide();">Close</a>
+			<a href="javascript: ToNewStory();">New</a>
+	</div>
+    <form class="form" id="form1">
+
+      <p class="name">
+        <input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Story Name" id="edit_div_content_title" />
+      </p>
+
+      <p class="tag">
+        <input name="tag" type="text" class="validate[required,custom[priority]] feedback-input" id="edit_div_content_tag" placeholder="tag" />
+      </p>
+
+      <p class="text">
+        <textarea name="text" class="validate[required,length[6,300]] feedback-input" id="edit_div_content_content" placeholder="Story Description"></textarea>
+      </p>
+      <p class="priority">
+        <input name="priority" type="text" class="validate[required,custom[priority]] feedback-input" id="edit_div_content_priority" placeholder="Select Entry Map" />
+      </p>
+
+
+    </form>
+  </div>
 </div>
   <script src='js/jquery-1.9.0.min.js'></script>
 
