@@ -1,4 +1,13 @@
-
+#protagonist {
+	z-index:99;
+	height: 42px;
+	width: 41px;
+	background: 
+	url('../assets/Hz28tgl.png') 0px 0px;
+	position:fixed;
+	top:50%;
+	left:50%;
+}
 
 #range {
     width:100%;
@@ -128,6 +137,7 @@
   top:0;
   left:0;
   width:100%;
+  display:none;
 
 }
 
