@@ -48,6 +48,11 @@ function clickSet() {
 
 //end of nav
 
+function parse_arguments(input_arguments){
+	var arguments_set = [];
+	return arguments_set;
+}
+
 var load = function(){
 	var map_offset;
 	var xPos;
@@ -66,12 +71,23 @@ var load = function(){
 		location_search = window.location.search.split("?")[1];
 		var query=location_search.split("&")[0];
 		$('#edit').attr("href","edit.html?"+location_search);
-		MapID = query.split("=")[1];
-		location_x = location_search.split("&")[1].split("=")[1];
-		Vlocal2cursor_x = location_x;
-		location_y = location_search.split("&")[2].split("=")[1];
-		Vlocal2cursor_y = location_y;
-		StoryID = location_search.split("&")[3].split("=")[1];
+		
+		input_arguments = location_search.split("&");
+		num_arguments = input_arguments.length;
+		arguments_set = parse_arguments(input_arguments);
+		arguments_set['location_x'] = location_search.split("&")[1].split("=")[1];
+		arguments_set['location_y'] = location_search.split("&")[2].split("=")[1];
+		arguments_set['StoryID'] = location_search.split("&")[3].split("=")[1];
+		arguments_set['MapID'] = query.split("=")[1];
+		
+		//location_x = location_search.split("&")[1].split("=")[1];
+		//location_y = location_search.split("&")[2].split("=")[1];
+		//StoryID = location_search.split("&")[3].split("=")[1];
+		//MapID = query.split("=")[1];
+		
+		Vlocal2cursor_x = arguments_set['location_x'];
+		Vlocal2cursor_y = arguments_set['location_y'];
+		
 		//if($(window).width()>$('#range').width()){
 		//	$('#map').offset({left:1200/2-location_x,top:800/2-location_y});
 		//}else{
@@ -83,7 +99,7 @@ var load = function(){
 		$.get(
 			appMaps,{
 				"command":"commandGetMapImageSrc",
-				"MapID":MapID
+				"MapID":arguments_set['MapID']
 			},function (data) {
 				//console.log(data);
 				//console.log('Vlocal2cursor_x:'+Vlocal2cursor_x);
@@ -94,8 +110,8 @@ var load = function(){
 		$.get(
 			appLandmarks,{
 				"command":"commandGetLandmarks",
-				"MapID":MapID,
-				"StoryID":StoryID
+				"MapID":arguments_set['MapID'],
+				"StoryID":arguments_set['StoryID']
 			},function (data) {
 				//console.log(data);
 				var landmarks_set_tmp = data.split("|");
@@ -112,7 +128,11 @@ var load = function(){
 							"MEMO":landmarks_set_tmp[i].split(',')[9]
 						})
 						//console.log(landmarks_set_tmp[i].split(',')[9]);
-						$('#icon_layer').append("<div id=\""+icon_div_set[i].id+"\" class=\"icon\"><img id=\"icon\" src=\"assets/icon.png\"/></div>");
+						if (parseInt(landmarks_set_tmp[i].split(',')[4]) != 0) {
+							$('#icon_layer').append("<div id=\""+icon_div_set[i].id+"\" class=\"icon\"><img id=\"icon\" src=\"assets/landmark.png\"/></div>");
+						}else{
+							$('#icon_layer').append("<div id=\""+icon_div_set[i].id+"\" class=\"icon\"><img id=\"icon\" src=\"assets/info.png\"/></div>");
+						}
 						Vlocal2cursor_set.push({
 							"x":parseInt(landmarks_set_tmp[i].split(",")[2]),
 							"y":parseInt(landmarks_set_tmp[i].split(",")[3])
